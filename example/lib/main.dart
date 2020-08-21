@@ -80,9 +80,21 @@ class _MyHomePageState extends State<MyHomePage> {
 //        // the App.build method, and use it to set our appbar title.
 //        title: Text(widget.title),
 //      ),
-      body: SearchFieldClose(
-        //controller: controller,
-        body: Center(
+      body: FlutterSearchBar(
+        mode: SEARCH_MODE.SEARCH,
+        controller: controller,
+        onChanged: (v){
+//          setState(() {
+//            controller.text = v;
+//          });
+        },
+        actions: [
+          IconButton(
+            icon: Icon(Icons.close, color: Colors.grey.shade800,),
+            onPressed: () => print("close"),
+          )
+        ],
+        child: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(

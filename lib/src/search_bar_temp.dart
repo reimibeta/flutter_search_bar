@@ -4,32 +4,31 @@
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //
 //// ignore: must_be_immutable
-//class SearchFieldClose extends StatefulWidget {
+//class SearchBarTemp extends StatefulWidget {
 //  String hint;
 //  bool focus = false;
 //  TextEditingController controller;
 //  Function onChanged;
 //  Function onSubmitted;
 //  Function onClear;
-//  Function onClose;
-////  Function onTap;
-////  double radius;
+//  Function onTap;
+//  double radius;
 //  // search bar style
 //  Widget leading;
-////  List<Widget> actions;
+//  List<Widget> actions;
 //  Color backgroundColor;
-////  Color borderColor;
+//  Color borderColor;
 //  Color bodyColor;
 //  // icons
 //  Icon clearIcon;
 //  Widget body;
-////  TextInputType type;
+//  TextInputType type;
 //  //
 //  Drawer drawer;
 //  BottomNavigationBar bottomNavigationBar;
 //  // Text
 //  TextAlign textAlign;
-//  SearchFieldClose({
+//  SearchBarTemp({
 //    Key key,
 //    this.hint,
 //    this.focus,
@@ -37,53 +36,45 @@
 //    this.onChanged,
 //    this.onSubmitted,
 //    this.onClear,
-//    this.onClose,
-////    this.onTap,
-////    this.radius,
+//    this.onTap,
+//    this.radius,
 //    this.leading,
 //    this.backgroundColor,
-////    this.actions,
-////    this.type,
+//    this.actions,
+//    this.type,
 //    this.body,
-////    this.borderColor,
+//    this.borderColor,
 //    this.bodyColor,
 //    // icons
 //    this.clearIcon,
 //    // text
-////    this.textAlign,
+//    this.textAlign,
 //
 //    this.drawer,
 //    this.bottomNavigationBar,
 //  }) : super(key : key);
 //  @override
-//  _SearchFieldCloseState createState() => _SearchFieldCloseState();
+//  _SearchBarState createState() => _SearchBarState();
 //}
 //
-//class _SearchFieldCloseState extends State<SearchFieldClose> {
+//class _SearchBarState extends State<SearchBarTemp> {
 //
 //  double _space = 10.0;
 //
-////  Widget _cancel(BlocSearch bloc){
-////    return StreamBuilder(
-////      stream: bloc.focus,
-////      builder: (context, snapshot){
-////        if(snapshot.hasData){
-////          if(snapshot.data){
-////            return FlatButton(
-////              child: Text("Cancel"),
-////              onPressed: (){
-////                widget.onClose();
-////              },
-////            );
-////          } else {
-////            return Container();
-////          }
-////        } else {
-////          return Container();
-////        }
-////      },
-////    );
-////  }
+//  Widget _cancel(){
+//    return FlatButton(
+//      child: Text("Cancel"),
+//      onPressed: (){
+//        FocusScopeNode currentFocus = FocusScope.of(context);
+//        if (!currentFocus.hasPrimaryFocus) {
+//          currentFocus.unfocus();
+//        }
+//        setState(() {
+//          _space = 10.0;
+//        });
+//      },
+//    );
+//  }
 //
 //  Widget _close(){
 //    return InkWell(
@@ -114,7 +105,10 @@
 //          leading: this.widget.leading,
 //          automaticallyImplyLeading: this.widget.leading == null ? false : true,
 //          backgroundColor: this.widget.backgroundColor == null ? Colors.white : widget.backgroundColor,
+////            titleSpacing: this.widget.leading == null ? 10.0 : 10.0,
 //          titleSpacing: _space,
+////          title: _search(bloc),
+////          brightness: Brightness.dark,
 //          title: Container(
 //            padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
 //            height: 40,
@@ -128,44 +122,33 @@
 //            ),
 //            child: new TextField(
 //              autofocus: widget.focus == null || widget.focus == false ? false : true,
+////              focusNode: _focusNode,
 //              controller: widget.controller,
 //              textAlign: TextAlign.left,
-//              style: TextStyle(
-//                color: Colors.grey.shade800
-//              ),
 //              decoration: new InputDecoration(
-//                hintText: "${widget.hint == null ? 'Search' : widget.hint}",
-//                border: InputBorder.none,
-//                suffixIcon: _suffixIcon(widget.controller),
+//                  hintText: "${widget.hint == null ? 'Search' : widget.hint}",
+//                  border: InputBorder.none,
+//                  suffixIcon: _suffixIcon(widget.controller)
 //              ),
 //              onChanged: (String value){
 //                widget.onChanged(value);
 //              },
-////                onTap: (){
-////                  print("focus");
-////                  bloc.changeFocus(true);
-////                  if(Platform.isIOS){
-////                    setState(() {
-////                      _space = 5.0;
-////                    });
-////                  } else if(Platform.isAndroid) {
-////                    setState(() {
-////                      _space = 10.0;
-////                    });
-////                  }
-////                },
+//              onTap: (){
+//                print("focus");
+//                if(Platform.isIOS){
+//                  setState(() {
+//                    _space = 5.0;
+//                  });
+//                } else if(Platform.isAndroid) {
+//                  setState(() {
+//                    _space = 10.0;
+//                  });
+//                }
+//              },
 //            ),
 //          ),
 //          actions: <Widget>[
-//            FlatButton(
-//              child: Text("Cancel", style: TextStyle(
-//                  color: Colors.grey.shade700,
-//                  fontWeight: FontWeight.bold
-//              )),
-//              onPressed: (){
-//                widget.onClose();
-//              },
-//            ),
+//            _cancel(),
 //          ],
 //        ),
 //        drawer: widget.drawer,
