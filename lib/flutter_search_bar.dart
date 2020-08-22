@@ -28,6 +28,7 @@ class FlutterSearchBar extends StatelessWidget {
   final bool focus;
   final TextEditingController controller;
   final Function onChanged;
+  final Function onSubmitted;
   final Function onClear;
 
   FlutterSearchBar({Key key,
@@ -40,6 +41,7 @@ class FlutterSearchBar extends StatelessWidget {
     @required this.controller,
     this.focus,
     this.onChanged,
+    this.onSubmitted,
     this.onClear
   }):super(key: key);
   // local variables
@@ -61,6 +63,7 @@ class FlutterSearchBar extends StatelessWidget {
         hint: this.hint,
         controller: this.controller,
         onChanged: this.onChanged,
+        onSubmitted: this.onSubmitted,
         onClear: this.onClear,
         focus: this.focus,
       );

@@ -7,6 +7,7 @@ class ContainField extends StatefulWidget {
   final String hint;
   final TextEditingController controller;
   final Function onChanged;
+  final Function onSubmitted;
   final Function onClear;
 
   ContainField({
@@ -14,6 +15,7 @@ class ContainField extends StatefulWidget {
     @required this.hint,
     @required this.controller,
     @required this.onChanged,
+    @required this.onSubmitted,
     @required this.onClear
   });
 
@@ -72,11 +74,10 @@ class _ContainFieldState extends State<ContainField> {
           suffixIcon: _suffixIcon(widget.controller),
         ),
         onChanged: (String value){
-//          setState(() {
-//            widget.controller.text = value;
-//          });
           widget.onChanged(value);
-          print(value);
+        },
+        onSubmitted: (v){
+          widget.onSubmitted(v);
         },
       ),
     );
