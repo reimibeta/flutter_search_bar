@@ -1,15 +1,10 @@
 library flutter_search_bar;
 
 import 'package:flutter/material.dart';
+import 'src/provider/bloc_provider.dart';
+import 'src/bloc/bloc_search.dart';
 import 'src/contain_box.dart';
 import 'src/contain_field.dart';
-//export 'src/search_field_open.dart';
-//export 'src/search_field_close.dart';
-//export 'src/search_bar_temp.dart';
-//export 'src/search_field.dart';
-//export 'src/search_test.dart';
-
-//export 'package:flutter_search_bar/flutter_search_bar.dart' show SEARCH_MODE;
 
 enum SEARCH_MODE {
   BOX, SEARCH
@@ -52,7 +47,7 @@ class FlutterSearchBar extends StatelessWidget {
   // container space
   static const double space = 10.0;
   // contain
-  Widget _container(){
+  Widget _container(BlocSearch bloc){
     if(this.mode == SEARCH_MODE.BOX){
       return ContainBox(
         hint: this.hint,
@@ -60,6 +55,7 @@ class FlutterSearchBar extends StatelessWidget {
       );
     } else {
       return ContainField(
+        bloc: bloc,
         hint: this.hint,
         controller: this.controller,
         onChanged: this.onChanged,
@@ -72,17 +68,21 @@ class FlutterSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: bodyColor,
-      appBar: AppBar(
-        leading: this.leading,
-        automaticallyImplyLeading: this.leading == null ? false : true,
-        backgroundColor: backgroundColor,
-        titleSpacing: space,
-        title: _container(),
-        actions: this.actions,
+    var bloc = BlocSearch();
+    return BlocProvider(
+      bloc: bloc,
+      child: Scaffold(
+        backgroundColor: bodyColor,
+        appBar: AppBar(
+          leading: this.leading,
+          automaticallyImplyLeading: this.leading == null ? false : true,
+          backgroundColor: backgroundColor,
+          titleSpacing: space,
+          title: _container(bloc),
+          actions: this.actions,
+        ),
+        body: this.child,
       ),
-      body: this.child,
     );
   }
 }

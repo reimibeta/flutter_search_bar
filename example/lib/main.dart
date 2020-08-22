@@ -84,9 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
         mode: SEARCH_MODE.SEARCH,
         controller: controller,
         onChanged: (v){
-//          setState(() {
-//            controller.text = v;
-//          });
+          print(v);
+        },
+        onSubmitted: (v){
+          print(v);
         },
         actions: [
           IconButton(

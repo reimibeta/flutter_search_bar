@@ -6,9 +6,10 @@ class ContainBox extends StatelessWidget {
   final Function onTap;
 
   ContainBox({
+    Key key,
     @required this.hint,
     @required this.onTap
-  });
+  }):super(key: key);
 
   @override
   Widget build(BuildContext context) {

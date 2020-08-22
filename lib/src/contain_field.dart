@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../src/bloc/bloc_search.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ContainField extends StatefulWidget {
 
+  final BlocSearch bloc;
   final bool focus;
   final String hint;
   final TextEditingController controller;
@@ -11,6 +13,7 @@ class ContainField extends StatefulWidget {
   final Function onClear;
 
   ContainField({
+    @required this.bloc,
     @required this.focus,
     @required this.hint,
     @required this.controller,
@@ -33,18 +36,33 @@ class _ContainFieldState extends State<ContainField> {
       ),
       onTap: (){
         WidgetsBinding.instance.addPostFrameCallback((_){
+          // clear controller
           widget.controller.clear();
-          widget.onClear();
+          // clear bloc
+          widget.bloc.sinkText("");
+          // on clear function
+          if(widget.onClear != null)
+            widget.onClear();
         });
       },
     );
   }
 
-  Widget _suffixIcon(TextEditingController controller){
-    if(controller.text != "")
-      return _close();
-    else
-      return Container(width: 0,);
+  Widget _suffixIcon(){
+    return StreamBuilder(
+      stream: widget.bloc.text,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          if(snapshot.data != "")
+            return _close();
+          else
+            return Container(width: 0,);
+        } else {
+          widget.bloc.sinkText("");
+          return Container(width: 0,);
+        }
+      },
+    );
   }
 
   @override
@@ -71,13 +89,15 @@ class _ContainFieldState extends State<ContainField> {
           hintText: widget.hint ?? "Search",
           hintStyle: TextStyle(color: Colors.grey.shade800),
           border: InputBorder.none,
-          suffixIcon: _suffixIcon(widget.controller),
+          suffixIcon: _suffixIcon(),
         ),
-        onChanged: (String value){
-          widget.onChanged(value);
+        onChanged: (String v){
+          widget.onChanged(v);
+          widget.bloc.sinkText(v);
         },
         onSubmitted: (v){
           widget.onSubmitted(v);
+          widget.bloc.sinkText(v);
         },
       ),
     );

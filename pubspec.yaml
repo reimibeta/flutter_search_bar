@@ -1,6 +1,6 @@
 name: flutter_search_bar
 description: Flutter search bar
-version: 0.0.1
+version: 1.0.1
 author: Reimi
 homepage: http://www.kh846.com
 
@@ -11,8 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   # font awesome flutter
   font_awesome_flutter: ^8.8.1
+  # flutter bloc
+#  flutter_bloc: ^6.0.1
+  rxdart: ^0.24.1
 
 dev_dependencies:
   flutter_test:
