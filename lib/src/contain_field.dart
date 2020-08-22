@@ -72,9 +72,9 @@ class _ContainFieldState extends State<ContainField> {
           suffixIcon: _suffixIcon(widget.controller),
         ),
         onChanged: (String value){
-          setState(() {
-            widget.controller.text = value;
-          });
+//          setState(() {
+//            widget.controller.text = value;
+//          });
           widget.onChanged(value);
           print(value);
         },
